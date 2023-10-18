@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de peliculas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #567EBB;
+            margin: 0;
+            padding: 0;
+        }
+
+        #top {
+            display: flex;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #2B4C7E;
+        }
+
+        #top h1 {
+            display: flex;
+            width: 10%;
+            color: #DCE0E6;
+            text-align: center;
+            font-size: 60px;
+            padding-left: 60px;
+        }
+
+        #top #refs {
+            padding-left: 50px;
+            display: flex;
+            width: 50%;
+        }
+
+        #top #refs a {
+            display: flex;
+            margin: auto;
+            color: #DCE0E6;
+            text-decoration: none;
+            font-size: 30px;
+
+        }
+
+        .movie-container {
+            max-width: 80%;
+            margin: 0 auto;
+
+
+        }
+
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+
+        }
+
+        .movie-item {
+            display: flex;
+            flex-direction: column;
+            width: 185px;
+            background-color: #DCE0E6;
+            /* Ancho fijo de la imagen */
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            /* Agrega un sombreado al contenedor */
+            padding: 20px;
+            /* Espacio interno para separar el contenido del sombreado */
+            border-radius: 10px;
+        }
+        .load-more-button {
+            width: 80%;
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #2B4C7E;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .load-more-button:hover {
+            background-color: #0056b3;
+        }
+
+        .logout-button{            
+            width: 15%;
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #2B4C7E;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover{
+            background-color: #0056b3;            
+        }
+
+        .movie-item img {
+            width: 100%;
+            /* Hace que la imagen ocupe todo el ancho del contenedor */
+            height: auto;
+            border-radius: 5px;
+            /* Agrega esquinas redondeadas a la imagen */
+        }
+
+        .movie-details {
+            margin-top: 10px;
+        }
+
+        .rating {
+            color: #0400ff;
+            /* Cambia el color del rating a dorado */
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .movie-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .release_date {
+            color: darkgray;
+        }
+
+        footer{
+        padding: 20px 0px;
+        width: 100%;
+        background-color: #2B4C7E;
+        }
+        .list{
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        }        
+        .li{
+        width: 15%;
+        margin: auto;
+        margin-left: 50px;
+        padding: 10px 15px;
+        color: #DCE0E6;
+        font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="top">
+        <h1>DIX +</h1>
+        <!-- Links de Referencias -->
+        <div id="refs">
+            <a href="Home.html">Inicio</a>
+            <a href="Movies.html">Peliculas</a>
+            <a href="Series.html">Series</a>
+            <a href="Index.html">Cerrar sesión</a>
+        </div>
+    </div>
+    <div id="app">
+        <div class="movie-container">
+            <h1>Películas</h1>
+            <div class="movie-list">
+                <div v-for="movie in movies" :key="movie.id" @click="selectMovie(movie.id)" class="movie-item">
+                    <img :src="'https://image.tmdb.org/t/p/w185/' + movie.poster_path" alt="Portada">
+                    <div class="movie-details">
+                        <div class="movie-title">{{ movie.title }}</div>
+                        <div class="movie-info">
+                            <p class="rating">Rating: {{ movie.vote_average }}</p>
+                            <p class="release_date">Fecha de lanzamiento: {{ movie.release_date }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button @click="loadMoreMovies" class="load-more-button">Cargar Más</button>
+
+        <button @click="LogOut" class="logout-button">Inicio</button>
+    </div>
+    
+  <footer>
+    <div class="list">
+      <p class="li">TodoEnUno</p>
+      <p class="li">Privacidad</p>
+      <p class="li">Preguntas frecuentes</p>
+      <p class="li">Cuenta</p>
+    </div>
+    <div class="list">
+      <p class="li">Visitanos</p>
+      <p class="li">Terminos</p>
+      <p class="li">Empleo</p>
+      <p class="li">Avisos legales</p>
+    </div>
+    <div class="list">
+      <p class="li">Contactanos</p>
+      <p class="li">Ayuda</p>
+      <p class="li">Prensa</p>
+      <p class="li">Preferencias de cookies</p>
+    </div>
+    <div class="list">
+      <p class="li">Sobre nosotros</p>
+    </div>
+    <div class="list">
+      <p class="li">© 1997-2021 TodoEnUno</p>
+    </div>
+  </footer>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+        const { createApp, ref } = Vue;
+
+        const app = createApp({
+            setup() {
+                const movies = ref([]);
+                let page = 1;
+                const selectedMovieId = ref(null);
+                const apiKey = 'fb78fb1043f6585094c940285994b4d6'; 
+                const apiUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-US&page=${page}&sort_by=popularity.desc&api_key=${apiKey}`;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        movies.value = data.results;
+                        page++;
+                    })
+                    .catch(error => console.error('Error al obtener datos:', error));
+
+                function selectMovie(movieId) {
+                    selectedMovieId.value = movieId;
+                    let peliId = selectedMovieId.value;
+                    localStorage.setItem('movieId', peliId);
+                    console.log('ID de la película seleccionada:', selectedMovieId.value);
+                    window.location.href = 'Movie.html';
+                }
+                function LogOut() {
+                    window.location.href = 'Home.html';
+                }
+                function loadMoreMovies() {
+ 
+                    const apiKey = 'fb78fb1043f6585094c940285994b4d6'; 
+                    const apiUrl = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&api_key=${apiKey}`;
+
+                    fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        page++;
+                        const newMovies = data.results;
+                        movies.value.push(...newMovies);
+                        
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar más películas:', error);
+                    });
+                }
+
+                return {
+                    movies,
+                    selectMovie,
+                    loadMoreMovies,
+                    LogOut
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

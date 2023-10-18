@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #567EBB;
+    margin: 0;
+    padding: 0;
+    }
+
+    #top{
+    display: flex;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2B4C7E;
+    }
+
+    #top h1{
+    display: flex;
+    width: 10%;
+    color: #DCE0E6;
+    text-align: center;
+    font-size: 60px;
+    padding-left: 60px;
+    }
+
+    #top #refs{
+      padding-left: 50px;
+      display: flex;
+      width: 50%;
+    }
+
+    #top #refs a{
+      display: flex;
+      margin: auto;
+      color: #DCE0E6;
+      text-decoration: none;
+      font-size: 30px;
+      
+    }
+
+    #app {
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #2B4C7E;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .details{
+      color: #DCE0E6;
+      font-size: 20px;
+    }
+
+    footer{
+        padding: 20px 0px;
+        width: 100%;
+        background-color: #2B4C7E;
+        }
+        .list{
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        }        
+        .li{
+        width: 15%;
+        margin: auto;
+        margin-left: 50px;
+        padding: 10px 15px;
+        color: #DCE0E6;
+        font-size: 16px;
+        }
+        /* Estilos para los detalles pelicula*/
+        .movie-details{
+          display: inline-block;
+          margin-bottom: 100px;
+        }
+        /* Estilos de la imagen de pelicula*/
+        .movie-img{
+          width: 400px;
+          height: auto;
+          float: left;
+          margin: 80px;
+        }
+        /* Estilos de la informacion relevante de la pelicula*/
+        .movie-data{
+          margin: 80px;
+          width: 50%;
+          height: auto;
+          float: left;
+        }
+        /* Estilos para el titulo de la pelicula*/
+        .movie-data h1{
+          color: #DCE0E6;
+          font-weight: bold;
+          font-size: 30px;
+        }
+        /* Estilos para el resumen de la pelicula*/
+        .movie-data .resume{
+          width: 80%;
+        }
+        /* Estilos para el boton de remover calificacion*/
+        .delete-rating-button{
+          background-color: #567EBB;
+          color: #DCE0E6;
+          font-weight: 300;
+          font-size: 24px;
+          margin-left: 16px;
+        }
+        /* Estilos para el reparto de la pelicula*/
+        .reparto{
+          margin: 0;
+          width: 72%;
+          display: flex;
+          overflow-y: hidden;
+          overflow-x: scroll;
+          background-color: #567EBB;
+          float: left;
+        }
+        .reparto .details{
+          width: 60%;
+          padding-top: 160px;
+          padding-left: 20px;
+          font-size: 30px;
+        }
+        .reparto .actor{
+          width: 150px;
+          height: 300px;
+          margin: 40px;
+          flex: 0 0 auto;
+          background-color: #DCE0E6;
+        }
+        .actor{
+          display: flex;
+          flex-direction: column;
+          width: 185px;
+          background-color: #DCE0E6;
+          box-sizing: border-box;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          padding: 20px;
+          border-radius: 10px;
+        }
+        .actor img{
+          width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .actor p{
+          color: #1f1f20;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+          justify-content: center;
+          margin-top: 10px;
+        }
+        .temporadas{
+          margin: 0;
+          width: 72%;
+          display: flex;
+          background-color: #567EBB;
+          float: left;
+        }
+        .seasons{
+          display: flex;
+          flex-direction: column;
+          width: 185px;
+          background-color: #DCE0E6;
+          box-sizing: border-box;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          padding: 20px;
+          border-radius: 10px;
+          margin-bottom: 20px; 
+          margin-right: 10px;
+          margin-left: 20px;
+        }
+        .seasons img{
+          width: 100%;
+          height: auto;
+          border-radius: 5px;
+        }
+        .seasons p{
+          color: #1f1f20;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+          justify-content: center;
+          margin-top: 10px;
+        }
+        p.character{
+          color: #656363;
+          font-size: 12px;
+          font-weight: bold;
+          margin-top: -5px;
+        }
+        .extra-info{
+          width: 28%;
+          margin: 0;
+          float: left;
+          max-height: 380px;
+          overflow-y: scroll;
+        }
+        .extra-info .details{
+          padding: 0px;
+          margin: 10% 20%;
+          text-align: center;
+          font-weight: bold;
+          font-size: 30px;
+        }
+        .extra-info .clave{
+          font-weight: lighter;
+          padding: 0px;
+          margin: 5% 20%;
+          font-size: 30px;
+          text-align: center;
+        }
+        /* Estilos para el trailer de la pelicula*/
+        .trailer{
+          width: 72%;
+          float: left;
+          background-color: #567EBB;
+        }
+        .trailer p{
+          font-size: 48px;
+          padding: 10px 20px;
+          font-weight: bolder;
+        }
+        .trailer div{
+          width: 600px;
+          height: 450px;
+          margin-left: 80px;
+          align-content: center;
+          text-align: center;
+          text-decoration: none;
+          color: #DCE0E6;
+        }
+        /* Estilos para la recomendacion de peliculas*/
+        .relevant-content{
+          width: 72%;
+          float: left;
+          background-color: #567EBB;
+          overflow-y: hidden;
+          overflow-x: scroll;
+        }
+        .relevant-content h2{
+          color: #DCE0E6;
+          font-weight: bold;
+          font-size: 30px;
+          padding: 30px;
+        }
+        .relevant-content ul{
+          width: 90%;
+          list-style: none;
+          display: flex;
+        }
+        .relevant-content li{ /* Cambiar por clase y objeto pelicula recomendada*/
+          width: 300px;
+          height: 250px;
+          flex: 0 0 auto;
+          margin: 10px 20px 30px 20px;
+          background-color: #1f1f20;
+          color: #DCE0E6;
+          padding: 30px;
+        }
+
+        .relevant-content-2{
+          width: 72%;
+          overflow-x: auto;
+          float: left;
+          background-color: #567EBB;
+        }
+        .relevant-content-2 h2{
+          color: #DCE0E6;
+          font-weight: bold;
+          font-size: 30px;
+          padding: 30px;
+        }
+        .relevant-content-2 ul{
+          width: 90%;
+          list-style: none;
+          display: flex;
+          justify-content: flex-start;
+          margin: 0;
+        }
+        /* Estilos para el contenedor de palabras clave */
+        .keywords-container {
+          background-color: #1f1f20;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .relevant-content-2 li{ /* Cambiar por clase y objeto pelicula recomendada*/
+          width: 300px;
+          height: 250px;
+          flex: 0 0 auto;
+          margin-right: -50px;
+          background-color: #1f1f20;
+          color: #DCE0E6;
+          padding: 30px;
+        }
+        /* Estilos para las palabras clave */
+        .keywords {
+          display: inline-block;
+          padding: 10px 20px;
+          margin: 10px;
+          background-color: #1f1f20;
+          color: #DCE0E6;
+          border-radius: 5px;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          transition: transform 0.2s;
+        }
+
+        .keywords:hover {
+          transform: scale(1.05);
+        }
+        .rating-stars {
+          display: block;
+          width: 65vmin;
+          padding: 3vmin;
+          border-radius: 5vmin;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          transform: rotateX(15deg);
+        }
+
+        input { display: none; }
+
+        label {
+          width: 6vmin;
+          height: 6vmin;
+          cursor: pointer;
+          margin: 0.3vmin 1.5vmin;
+          transition: var(--tran);
+          transition-delay: 0s;
+          position: relative;
+        }
+
+        label:before {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          content: "\2605";
+          z-index: 2;
+          font-size: 8vmin;
+          line-height: 11vmin;
+          color: #b1ddff;
+          text-align: center;
+          transform: translateY(0vmin);
+          transition: var(--tran);
+          text-shadow: 
+            1px 1px 1px var(--tb), 
+            -1px -1px 1px var(--tb), 
+            -1px 0px 1px var(--tb), 
+            1px 0px 1px var(--tb), 		
+            0vmin 0.1vmin 1px #1d8be1, 
+            0vmin 0.1vmin 1px #1d8be1, 
+            0vmin 0.2vmin 1px #1b81d1, 
+            0vmin 0.2vmin 1px #1b81d1, 
+            0vmin 0.3vmin 1px #1972b7, 
+            0vmin 0.3vmin 1px #1972b7, 
+            0vmin 0.4vmin 1px #1a76bd, 
+            0vmin 0.4vmin 1px #1a76bd, 
+            0vmin 0.5vmin 1px #196fb1, 
+            0vmin 0.5vmin 1px #196fb1, 
+            0vmin 0.6vmin 1px #1868a5, 
+            0vmin 0.6vmin 1px #1868a5, 
+            0vmin 0.7vmin 1px #155f97, 
+            0vmin 0.7vmin 1px #155f97, 
+            0vmin 0.8vmin 1px #125689, 
+            0vmin 0.8vmin 1px #125689, 
+            0vmin 0.9vmin 1px #104e7d, 
+            0vmin 0.9vmin 1px #104e7d, 
+            0vmin 1.0vmin 1px #104975, 
+            0vmin 1.1vmin 1px #104975, 
+            0vmin 1.1vmin 1px #0e4169, 
+            0vmin 1.2vmin 1px #0e4169, 
+            0vmin 1.2vmin 1px #0c395d, 
+            0vmin 1.3vmin 1px #0c395d, 
+            0vmin 1.3vmin 1px #0a3151, 
+            0vmin 1.4vmin 1px #0a3151, 
+            0vmin 1.4vmin 1px #092c49, 
+            0vmin 1.5vmin 1px #092c49, 
+            0vmin 1.5vmin 1px #072239, 
+            0vmin 1.6vmin 1px #072239, 
+            0vmin 1.6vmin 3px #00000020;
+          filter: drop-shadow(0px 5px 10px #008dff) drop-shadow(0px 5px 30px #008dff);		
+        }
+
+        label:hover:before {
+          color: #e2f2ff;
+          filter: drop-shadow(0px 5px 15px #b1ddff) drop-shadow(0px 5px 30px #b1ddff);
+        }
+
+
+
+
+        /*** unchecked:before ***/
+        input:checked + label ~ label:before, 
+        input:checked + label ~ label:hover:active:before {
+          transition: var(--tran);
+          color: #ffedb9;
+          color: #18242f;
+          transform: translateY(1.5vmin);
+          filter: none;
+          text-shadow: 
+            1px 1px 1px var(--tbh), 
+            -1px -1px 1px var(--tbh), 
+            -1px 0px 1px var(--tbh), 
+            1px 0px 1px var(--tbh), 
+            0vmin 0.01vmin 1px #1d8be1, 
+            0vmin 0.02vmin 1px #1d8be1, 
+            0vmin 0.03vmin 1px #1b81d1, 
+            0vmin 0.04vmin 1px #1b81d1, 
+            0vmin 0.05vmin 1px #1972b7, 
+            0vmin 0.06vmin 1px #1972b7, 
+            0vmin 0.07vmin 1px #1a76bd, 
+            0vmin 0.08vmin 1px #1a76bd, 
+            0vmin 0.09vmin 1px #196fb1, 
+            0vmin 0.10vmin 1px #196fb1, 
+            0vmin 0.11vmin 1px #1868a5, 
+            0vmin 0.12vmin 1px #1868a5, 
+            0vmin 0.13vmin 1px #155f97, 
+            0vmin 0.14vmin 1px #155f97, 
+            0vmin 0.15vmin 1px #125689, 
+            0vmin 0.16vmin 1px #125689, 
+            0vmin 0.17vmin 1px #104e7d, 
+            0vmin 0.18vmin 1px #104e7d, 
+            0vmin 0.19vmin 1px #104975, 
+            0vmin 0.20vmin 1px #104975, 
+            0vmin 0.21vmin 1px #0e4169, 
+            0vmin 0.22vmin 1px #0e4169, 
+            0vmin 0.23vmin 1px #0c395d, 
+            0vmin 0.24vmin 1px #0c395d, 
+            0vmin 0.25vmin 1px #0a3151, 
+            0vmin 0.26vmin 1px #0a3151, 
+            0vmin 0.27vmin 1px #092c49, 
+            0vmin 0.28vmin 1px #092c49, 
+            0vmin 0.29vmin 1px #072239, 
+            0vmin 0.3vmin 1px #072239, 
+            0vmin 0.5vmin 3px #00000020;
+        }
+
+
+
+        /*** unchecked:hover:before ***/
+        input:checked + label ~ label:hover:before, 
+        label ~ label:hover:active:before {	
+          color: #2196F3;
+          transform: translateY(1vmin);
+          text-shadow: 
+            1px 1px 1px var(--tbh), 
+            -1px -1px 1px var(--tbh), 
+            -1px 0px 1px var(--tbh), 
+            1px 0px 1px var(--tbh), 
+            0vmin 0.02vmin 1px #1d8be1, 
+            0vmin 0.04vmin 1px #1d8be1, 
+            0vmin 0.06vmin 1px #1b81d1, 
+            0vmin 0.08vmin 1px #1b81d1, 
+            0vmin 0.10vmin 1px #1972b7, 
+            0vmin 0.12vmin 1px #1972b7, 
+            0vmin 0.14vmin 1px #1a76bd, 
+            0vmin 0.16vmin 1px #1a76bd, 
+            0vmin 0.18vmin 1px #196fb1, 
+            0vmin 0.20vmin 1px #196fb1, 
+            0vmin 0.22vmin 1px #1868a5, 
+            0vmin 0.24vmin 1px #1868a5, 
+            0vmin 0.26vmin 1px #155f97, 
+            0vmin 0.28vmin 1px #155f97, 
+            0vmin 0.30vmin 1px #125689, 
+            0vmin 0.32vmin 1px #125689, 
+            0vmin 0.34vmin 1px #104e7d, 
+            0vmin 0.36vmin 1px #104e7d, 
+            0vmin 0.38vmin 1px #104975, 
+            0vmin 0.40vmin 1px #104975, 
+            0vmin 0.42vmin 1px #0e4169, 
+            0vmin 0.44vmin 1px #0e4169, 
+            0vmin 0.46vmin 1px #0c395d, 
+            0vmin 0.48vmin 1px #0c395d, 
+            0vmin 0.50vmin 1px #0a3151, 
+            0vmin 0.52vmin 1px #0a3151, 
+            0vmin 0.54vmin 1px #092c49, 
+            0vmin 0.56vmin 1px #092c49, 
+            0vmin 0.58vmin 1px #072239, 
+            0vmin 0.60vmin 1px #072239, 
+            0vmin 1vmin 3px #00000020;	
+        }
+
+
+        label[for=rs1]:before {
+          transition-delay: 0.05s;
+        }
+        label[for=rs2]:before {
+          transition-delay: 0.1s;
+        }
+        label[for=rs3]:before {
+          transition-delay: 0.15s;
+        }
+        label[for=rs4]:before {
+          transition-delay: 0.2s;
+        }
+        label[for=rs5]:before {
+          transition-delay: 0.25s;
+        }
+
+        /*** Reload ***/
+        label[for=rs0] {
+          position: absolute;
+          top: 13vmin;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        label[for=rs0]:before {
+            --ar: #18242f;
+          content: "";
+            position: absolute;
+            width: 12vmin;
+            height: 12vmin;
+            border-radius: 100%;
+          transform: rotate(0deg);
+            background: 
+            radial-gradient(circle at 50% 135%, #fff0 40%, var(--ar) calc(40% + 1px) 45%, #fff0 calc(45% + 1px) 100%), 
+            radial-gradient(circle at 50% -35%, #fff0 40%, var(--ar) calc(40% + 1px) 45%, #fff0 calc(45% + 1px) 100%), 
+            conic-gradient(from -45deg at 50% 60%, var(--ar) 0 25%, #fff0 0 100%), 
+            conic-gradient(from 135deg at 50% 40%, var(--ar) 0 25%, #fff0 0 100%);
+            background-size: 100% 20%, 100% 20%, 1.5vmin 1.5vmin, 1.5vmin 1.5vmin;
+            background-repeat: no-repeat;
+            background-position: 0% 27%, 0% 73%, 77% 47%, 23% 52%;
+            transition: all 0.5s ease 0s;
+            filter: drop-shadow(1px 1px 1px #0008) drop-shadow(-1px -1px 1px #fff2);
+        }
+
+        label[for=rs0]:hover:before {
+          --ar: #e2f2ff;
+          transform: rotate(270deg);
+          transition: all 0.5s ease 0s;
+          filter: 
+            drop-shadow(-1px -1px 1px #0008) 
+            drop-shadow(1px 1px 1px #fff2) 
+            drop-shadow(0px 5px 15px #b1ddff) 
+            drop-shadow(0px 5px 30px #b1ddff);
+        }
+
+
+        /*** Number ***/
+        .number {
+            position: absolute;
+            margin-top: 11.9vmin;
+            font-size: 3vmin;
+            font-family: Arial, serif;
+            color: #b1ddff;
+            z-index: -1;
+            filter: 
+            drop-shadow(1px 1px 1px #000) 
+            drop-shadow(-1px -1px 1px #fff4) 
+            drop-shadow(0px 0px 5px #008dff) 
+            drop-shadow(0px 0px 10px #008dff) 
+            drop-shadow(0px 0px 15px #008dff);
+        }
+
+        #rs0:checked ~ .number {
+            color: #18242f;
+            font-weight: bold;
+            filter: 
+            drop-shadow(1px 1px 1px #000) 
+            drop-shadow(-1px -1px 1px #fff4);
+            text-shadow: none;
+        }
+
+        .number:after {
+          content: "0";
+        }
+
+        #rs1:checked ~ .number:after {
+          content: "1";
+        }
+
+        #rs2:checked ~ .number:after {
+          content: "2";
+        }
+
+        #rs3:checked ~ .number:after {
+          content: "3";
+        }
+
+        #rs4:checked ~ .number:after {
+          content: "4";
+        }
+
+        #rs5:checked ~ .number:after {
+          content: "5";
+        }
+        .favoritos-button {
+          background-color: gray; /* Establece el color de fondo a gris */
+          color: #fff; /* Establece el color del texto a blanco */
+          border: none;
+          padding: 10px 20px;
+          cursor: pointer;
+          border-radius: 5px; /* Añade bordes redondeados si lo deseas */
+          transition: background-color 0.3s; /* Agrega una transición suave al color de fondo */
+      }
+
+      /* Estilo al pasar el ratón por encima del botón */
+      .favoritos-button:hover {
+          background-color: #ffcc00; /* Cambia el color de fondo al pasar el ratón por encima */
+      }
+
+      /* Estilo cuando se presiona el botón */
+      .favoritos-button:active {
+          background-color: #ffcc00; /* Cambia el color de fondo cuando se presiona */
+      }
+      .regresar-button {
+        background-color: #007BFF; /* Color de fondo del botón */
+        color: #fff; /* Color del texto */
+        padding: 10px 20px; /* Espaciado interno */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar por encima */
+        transition: background-color 0.3s; /* Transición suave del color de fondo */
+      }
+
+      /* Estilo al pasar el ratón por encima del botón */
+      .regresar-button:hover {
+        background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón por encima */
+      }
+
+      /* Estilo cuando se presiona el botón */
+      .regresar-button:active {
+        background-color: #00418c; /* Cambia el color de fondo cuando se presiona */
+      }
+
+  </style>
+</head>
+<body>
+<!-- Top de la pagina -->
+<div id="top">
+  <h1>DIX +</h1>
+  <!-- Links de Referencias -->
+  <div id="refs">        
+    <a href="Home.html">Inicio</a>
+    <a href="Movies.html">Peliculas</a>
+    <a href="Series.html">Series</a>
+    <a href="Index.html">Cerrar sesión</a>
+  </div>
+</div>
+<div id="app">
+  <button @click="atras" class="regresar-button">Regresar</button>
+  <div class="movie-details">
+    <img class="movie-img" :src="movieDetails.poster_path ? 'https://image.tmdb.org/t/p/w500/' + movieDetails.poster_path : ''" :alt="movieDetails.title" width="300">
+    <div class="movie-data">
+      <h1>{{ movieDetails.title }}</h1>
+      <p class="details resume">Resumen: {{ movieDetails.overview }}</p>
+      <p class="details">Fecha de lanzamiento: {{ movieDetails.release_date }}</p>
+      <p class="details">Calificación promedio: {{ movieDetails.vote_average }}</p>
+      <p class="details">Géneros: 
+        <span v-for="(genre, index) in movieDetails.genres" :key="index" @click="selecteGenre(genre.id)">
+          {{ genre.name }}{{ index < movieDetails.genres.length - 1 ? ', ' : '' }}
+        </span>
+      </p>
+      <p class="details">Duración: {{ movieDetails.runtime }} minutos</p>
+      <p class="details">Presupuesto: ${{ movieDetails.budget }}</p>
+      <p class="details">Ingresos: ${{ movieDetails.revenue }}</p>
+      <button class="favoritos-button" @click="cambiarColor">Favorito</button>
+      
+      <p class="details" for="calificacion">Tu calificación:</p>
+      <div class="rating-stars">
+        <input type="radio" name="rating" id="rs0" @click="eliminarCalificacion"><label for="rs0"></label>
+        <input type="radio" name="rating" id="rs1" @click="calificar(1)"><label for="rs1"></label>
+        <input type="radio" name="rating" id="rs2" @click="calificar(2)"><label for="rs2"></label>
+        <input type="radio" name="rating" id="rs3" @click="calificar(3)"><label for="rs3"></label>
+        <input type="radio" name="rating" id="rs4" @click="calificar(4)"><label for="rs4"></label>
+        <input type="radio" name="rating" id="rs5" @click="calificar(5)"><label for="rs5"></label>
+        <span class="number" @click="eliminarCalificacion"></span>
+      </div>
+    </div>
+    
+  </div>
+
+
+
+  <div class="reparto" v-if="movieDetails.credits && movieDetails.credits.cast">
+    <h1 class="details">Actores Principales:</h1>
+    <div class="actor" v-for="(actor, index) in movieDetails.credits.cast" :key="index" @click="selectActor(actor.id)">
+      <img :src="actor.profile_path ? 'https://image.tmdb.org/t/p/w500/' + actor.profile_path : ''" :alt="actor.name" width="100">
+      <p>{{ actor.name }}</p>
+      <div class="serie-info">
+        <p class="character">{{ actor.character }}</p>
+    </div>
+    </div>
+  </div>
+
+  <div class="extra-info" v-if="movieDetails.keywords && movieDetails.keywords.keywords">
+    <div class="keywords-container">
+      <p class="details">Palabras clave:</p>
+      <p class="details clave"><span v-for="(keyword, index) in movieDetails.keywords.keywords" :key="index" @click="selecteKeywords(keyword.id)" class="keywords">
+        {{ keyword.name }}{{ index < movieDetails.keywords.keywords.length - 1 ? ', ' : '' }}
+      </span></p>
+    </div>
+  </div>
+
+  <div class="trailer">
+    <p class="details">Trailer:</p>
+    <div>
+      <!-- Mostrar el reproductor de video si hay una URL, o un mensaje si no hay video -->
+      <div class="video-container" v-if="videoUrl">
+        <iframe width="700" height="450" :src="videoUrl" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div v-else>
+        <p>No hay video de trailer disponible.</p>
+      </div>
+    </div>
+  </div>
+  
+ 
+
+  <div class="relevant-content-2">
+    <h2>Recomendaciones</h1>
+    <div class="reparto" v-if="movieDetails.recommendations && movieDetails.recommendations.results">
+      <div class="actor" v-for="(recommendation, index) in movieDetails.recommendations.results" :key="index" @click="selectMovie(recommendation.id)">
+        <img :src="recommendation.poster_path ? 'https://image.tmdb.org/t/p/w500/' + recommendation.poster_path : ''" :alt="recommendation.name" width="100">
+        <p>{{ recommendation.title }}</p>
+      </div>
+    </div>
+  
+  </div>
+  
+  
+</div>
+<footer>
+  <div class="list">
+    <p class="li">TodoEnUno</p>
+    <p class="li">Privacidad</p>
+    <p class="li">Preguntas frecuentes</p>
+    <p class="li">Cuenta</p>
+  </div>
+  <div class="list">
+    <p class="li">Visitanos</p>
+    <p class="li">Terminos</p>
+    <p class="li">Empleo</p>
+    <p class="li">Avisos legales</p>
+  </div>
+  <div class="list">
+    <p class="li">Contactanos</p>
+    <p class="li">Ayuda</p>
+    <p class="li">Prensa</p>
+    <p class="li">Preferencias de cookies</p>
+  </div>
+  <div class="list">
+    <p class="li">Sobre nosotros</p>
+  </div>
+  <div class="list">
+    <p class="li">© 1997-2021 TodoEnUno</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script type="module">
+    const { createApp, ref } = Vue;
+
+    const app = createApp({
+      setup() {
+        const favorite = ref(false); 
+        const movieDetails = ref({});
+        const rating = ref(0);
+        const selectedRating = ref(null);
+        const favoritosButtonColor = ref('gray');
+        //const serieReparto = ref({});
+        //const serieKeyWords = ref({});
+        const selectedMovieId = ref(null);
+        let videoUrl = ref('');
+        const apiKey = 'fb78fb1043f6585094c940285994b4d6';
+        let movieId = localStorage.getItem('movieId');
+        console.log(movieId);
+        const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos%2Ckeywords%2Crecommendations%2Ccredits&language=es-MX&api_key=${apiKey}`;
+        const ratingUrl = `https://api.themoviedb.org/3/movie/${movieId}/rating`;
+        //const ratingUrl = `https://api.themoviedb.org/3/tv/${serieId}/rating`;
+        //const videosUrl = `https://api.themoviedb.org/3/tv/${serieId}?append_to_response=videos&language=es-US&api_key=${apiKey}`;
+
+        const fetchMovieDetails = () => {
+          fetch(apiUrl)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('La respuesta de la red no fue exitosa');
+              }
+              return response.json();
+            })
+            .then(data => {
+              movieDetails.value = data;
+              // Obtener el ID del video del trailer (si existe)
+              const trailerVideos = data.videos && data.videos.results ? data.videos.results : [];
+              const trailerVideo = trailerVideos.find(video => video.type === 'Trailer');
+
+              if (trailerVideo) {
+                // Construir la URL del video del trailer
+                videoUrl.value = `https://www.youtube.com/embed/${trailerVideo.key}`;
+                console.log(videoUrl.value);
+              }
+
+            })
+            .catch(error => {
+              console.error('Error al cargar los detalles de la pelicula:', error);
+            });
+        };
+        function selectMovie(movieId) {
+          localStorage.setItem('movieId', movieId);
+          window.location.href = 'movie.html';
+        }
+        function selectActor(actorId) {
+          localStorage.setItem('actorId', actorId);
+          window.location.href = 'Artist.html';
+        }
+        function selecteKeywords(keyWordsId) {
+          localStorage.setItem('keywordsId', keyWordsId);
+          console.log(keyWordsId);
+          window.location.href = 'DetailsKeyWords.html';
+        }
+        function selecteGenre(genreId) {
+          localStorage.setItem('genreId', genreId);
+          console.log(genreId);
+          window.location.href = 'Details.html';
+        }
+        const cambiarColor = () => {
+            if (favoritosButtonColor.value === 'gray') {
+                favoritosButtonColor.value = '#ffcc00';
+            } else {
+                favoritosButtonColor.value = 'gray';
+            }
+        };
+        function calificar(calificacion) {
+          rating.value = calificacion;
+          localStorage.setItem('calificacion', calificacion);
+          console.log(calificacion);
+          selectedRating.value = rating.value;
+          if (selectedRating.value !== null) {
+            fetch(ratingUrl, {
+              method: 'POST',
+              headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json;charset=utf-8',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjc4ZmIxMDQzZjY1ODUwOTRjOTQwMjg1OTk0YjRkNiIsInN1YiI6IjY1MTQzYjgyOWI4NjE2MDBmZjY3OWNlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.eGB5PtzldMglr8QBxbtSZJtH-qrvq7pXvRbhXHzNc1A'
+              },
+              body: JSON.stringify({
+                value: selectedRating.value,
+              }),
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('La calificación no se pudo enviar');
+                }
+                console.log('La serie ha sido calificada:', selectedRating.value);
+                
+              })
+              .catch(error => {
+                console.error('Error al calificar la película:', error);
+              });
+          }
+        }
+
+        function eliminarCalificacion() {
+          if (selectedRating.value !== null) {
+            fetch(ratingUrl, {
+              method: 'DELETE',
+              headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json;charset=utf-8',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjc4ZmIxMDQzZjY1ODUwOTRjOTQwMjg1OTk0YjRkNiIsInN1YiI6IjY1MTQzYjgyOWI4NjE2MDBmZjY3OWNlZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.eGB5PtzldMglr8QBxbtSZJtH-qrvq7pXvRbhXHzNc1A'
+              },
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('La calificación no se pudo eliminar');
+                }
+                console.log('La calificación ha sido eliminada', selectedRating.value);
+                
+              })
+              .catch(error => {
+                console.error('Error al eliminar la calificación:', error);
+              });
+          }
+        }
+        function atras() {
+          const referencia = document.referrer;
+
+          if (referencia.includes('Movies.html')) {
+            window.location.href = 'Movies.html';
+          } else {
+            window.location.href = 'Home.html';
+          }
+        }
+
+        fetchMovieDetails();
+
+        return {
+          movieDetails,
+          favorite,
+          videoUrl,
+          selectMovie,
+          selectActor,
+          selecteKeywords,
+          selecteGenre,
+          atras,
+          favoritosButtonColor,
+          cambiarColor,
+          eliminarCalificacion,
+          calificar
+          
+        };
+      },
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temporada</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #567EBB;
+    margin: 0;
+    padding: 0;
+    }
+
+    #top{
+    display: flex;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2B4C7E;
+    }
+
+    #top h1{
+    display: flex;
+    width: 10%;
+    color: #DCE0E6;
+    text-align: center;
+    font-size: 60px;
+    padding-left: 60px;
+    }
+
+    #top #refs{
+      padding-left: 50px;
+      display: flex;
+      width: 50%;
+    }
+
+    #top #refs a{
+      display: flex;
+      margin: auto;
+      color: #DCE0E6;
+      text-decoration: none;
+      font-size: 30px;
+      
+    }
+
+    #app {
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #2B4C7E;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .details{
+      color: #DCE0E6;
+      font-size: 20px;
+    }
+
+    footer{
+        padding: 20px 0px;
+        width: 100%;
+        background-color: #2B4C7E;
+        }
+        .list{
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        }        
+        .li{
+        width: 15%;
+        margin: auto;
+        margin-left: 50px;
+        padding: 10px 15px;
+        color: #DCE0E6;
+        font-size: 16px;
+        }
+        /* Estilos para los detalles pelicula*/
+        .movie-details{
+          width: 100%;
+          display: inline-block;
+        }
+        /* Estilos de la imagen de pelicula*/
+        .movie-img{
+          width: 400px;
+          height: auto;
+          float: left;
+          margin: 80px;
+        }
+        /* Estilos de la informacion relevante de la pelicula*/
+        .movie-data{
+          margin: 80px;
+          width: 50%;
+          height: auto;
+          float: right;
+        }
+        /* Estilos para el titulo de la pelicula*/
+        .movie-data h1{
+          color: #DCE0E6;
+          font-weight: bold;
+          font-size: 30px;
+        }
+        /* Estilos para el resumen de la pelicula*/
+        .movie-data .resume{
+          width: 80%;
+        }
+        /* Estilos para el boton de remover calificacion*/
+        .delete-rating-button{
+          background-color: #567EBB;
+          color: #DCE0E6;
+          font-weight: 300;
+          font-size: 24px;
+          margin-left: 16px;
+        }
+        /* Estilos para el reparto de la pelicula*/
+        .reparto{
+          margin: 0;
+          width: 72%;
+          display: flex;
+          overflow-y: hidden;
+          overflow-x: scroll;
+          background-color: #567EBB;
+          float: left;
+        }
+        .reparto .details{
+          width: 100%;
+          padding-top: 130px;
+          padding-left: 20px;
+          font-size: 30px;
+        }
+        .reparto .actor{
+          width: 150px;
+          height: 300px;
+          margin: 40px;
+          flex: 0 0 auto;
+          background-color: #DCE0E6;
+        }
+        .actor{
+          display: flex;
+          flex-direction: column;
+          width: 185px;
+          background-color: #DCE0E6;
+          box-sizing: border-box;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          padding: 20px;
+          border-radius: 10px;
+        }
+        .actor img{
+          width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .actor p{
+          color: #1f1f20;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+          justify-content: center;
+          margin-top: 10px;
+        }
+        .temporadas{
+          margin: 0;
+          width: 72%;
+          background-color: #567EBB;
+          float: left;
+        }
+        .seasons{
+          display: flex;
+          flex-direction: column;
+          width: 500px;
+          background-color: #DCE0E6;
+          box-sizing: border-box;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          padding: 20px;
+          border-radius: 10px;
+          margin-bottom: 20px; 
+          margin-right: 10px;
+          margin-left: 20px;
+        }
+        .seasons-img{
+          width: 100%;
+          height: auto;
+          border-radius: 5px;
+        }
+        .seasons-p{
+          color: #1f1f20;
+          text-align: left;
+          font-size: 20px;
+          font-weight: bold;
+          justify-content: center;
+          margin-top: 10px;
+        }
+        p.character{
+          color: #656363;
+          font-size: 12px;
+          font-weight: bold;
+          margin-top: -5px;
+        }
+        .extra-info{
+          width: 28%;
+          margin: 0;
+          float: left;
+        }
+        .extra-info .details{
+          padding: 0px;
+          margin: 10% 20%;
+          text-align: center;
+          font-weight: bold;
+          font-size: 30px;
+        }
+        .extra-info .clave{
+          font-weight: lighter;
+          padding: 0px;
+          margin: 5% 20%;
+          font-size: 30px;
+          text-align: center;
+        }
+        /* Estilos para la recomendacion de peliculas*/
+        .relevant-content{
+          width: 72%;
+          float: left;
+          background-color: #567EBB;
+        }
+        .relevant-content h2{
+          color: #DCE0E6;
+          font-weight: bold;
+          font-size: 30px;
+          padding: 30px;
+        }
+        .relevant-content ul{
+          width: 90%;
+          list-style: none;
+          display: flex;
+        }
+        .relevant-content li{ /* Cambiar por clase y objeto pelicula recomendada*/
+          width: 300px;
+          height: 250px;
+          flex: 0 0 auto;
+          margin: 10px 20px 30px 20px;
+          background-color: #1f1f20;
+          color: #DCE0E6;
+          padding: 30px;
+        }
+
+        .relevant-content-2{
+          width: 72%;
+          overflow-x: auto;
+          float: left;
+          background-color: #567EBB;
+        }
+        .relevant-content-2 h2{
+          color: #DCE0E6;
+          font-weight: bold;
+          font-size: 30px;
+          padding: 30px;
+        }
+        .relevant-content-2 ul{
+          width: 90%;
+          list-style: none;
+          display: flex;
+          justify-content: flex-start;
+          margin: 0;
+        }
+        /* Estilos para el contenedor de palabras clave */
+        .keywords-container {
+          background-color: #1f1f20;
+          padding: 20px;
+          margin: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .relevant-content-2 li{ /* Cambiar por clase y objeto pelicula recomendada*/
+          width: 300px;
+          height: 250px;
+          flex: 0 0 auto;
+          margin-right: -50px;
+          background-color: #1f1f20;
+          color: #DCE0E6;
+          padding: 30px;
+        }
+        /* Estilos para las palabras clave */
+        .keywords {
+          display: inline-block;
+          padding: 10px 20px;
+          margin: 10px;
+          background-color: #1f1f20;
+          color: #DCE0E6;
+          border-radius: 5px;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          transition: transform 0.2s;
+        }
+
+        .keywords:hover {
+          transform: scale(1.05);
+        }
+        .episode-details {
+          float: right;
+          text-align: right;
+          flex-direction: row; /* Alinear a la derecha */
+          /* Agrega estilos de diseño según tus preferencias */
+        }
+
+        .seasons .expanded .episode-details {
+          display: block; /* Mostrar cuando el episodio esté expandido */
+        }
+        .guest-star-info {
+          display: flex;
+          flex-direction: row; /* Apila el nombre y el personaje uno encima del otro */
+          align-items: flex-start; /* Alinea a la izquierda */
+          margin: 10px; /* Ajusta el margen entre las estrellas invitadas */
+          background-color: #567EBB;
+          border-radius: 5px;
+          width: 450px; 
+        }
+        .guest-star {
+          background-color: #DCE0E6;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          padding: 10px;
+          margin-right: 10px; /* Margen entre las estrellas invitadas */
+        }
+
+        .img-star {
+          max-width: 100px;
+          height: auto;
+          border-radius: 5px;
+          margin-right: 20px;
+        }
+
+        .small-text {
+          font-size: 20px;
+          text-align: left; /* Alinea el texto a la izquierda */
+          margin: 5px 0; 
+        }
+        .regresar-button {
+        background-color: #007BFF; /* Color de fondo del botón */
+        color: #fff; /* Color del texto */
+        padding: 10px 20px; /* Espaciado interno */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar por encima */
+        transition: background-color 0.3s; /* Transición suave del color de fondo */
+      }
+
+      /* Estilo al pasar el ratón por encima del botón */
+      .regresar-button:hover {
+        background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón por encima */
+      }
+
+      /* Estilo cuando se presiona el botón */
+      .regresar-button:active {
+        background-color: #00418c; /* Cambia el color de fondo cuando se presiona */
+      }
+
+
+  </style>
+</head>
+<body>
+<!-- Top de la pagina -->
+<div id="top">
+  <h1>DIX +</h1>
+  <!-- Links de Referencias -->
+  <div id="refs">        
+    <a href="Home.html">Inicio</a>
+    <a href="Movies.html">Peliculas</a>
+    <a href="Series.html">Series</a>
+    <a href="Index.html">Cerrar sesión</a>
+  </div>
+</div>
+<div id="app">
+  <button @click="atras" class="regresar-button">Regresar</button>
+  <div class="movie-details">
+    <img class="movie-img" :src="seasonsDetails.poster_path ? 'https://image.tmdb.org/t/p/w500/' + seasonsDetails.poster_path : ''" :alt="seasonsDetails.season_number" width="300">
+    <div class="movie-data">
+      <h1>Temporada {{ seasonsDetails.season_number }}</h1>
+      <p class="details resume">Resumen: {{ seasonsDetails.overview }}</p>
+      <p class="details">Fecha de lanzamiento: {{ seasonsDetails.air_date }}</p>
+      <p class="details">Calificación promedio: {{ seasonsDetails.vote_average }}</p>
+      <p class="details">Episodios: {{ seasonsDetails.episodes.length }}</p>
+      </div>
+    
+  </div>
+
+  
+  <div class="relevant-content">
+    <h2>Episodios</h2>
+    <div class="temporadas" v-if="seasonsDetails.episodes && seasonsDetails.episodes.length">
+      <div class="seasons" v-for="episode in seasonsDetails.episodes" :key="episode.id" @click="toggleSeasonDetails(episode)">
+        <img :src="episode.still_path ? 'https://image.tmdb.org/t/p/w500/' + episode.still_path : ''" :alt="episode.name" width="100" class="seasons-img">
+        <p class="seasons-p">{{ episode.name }}</p>
+        <p class="seasons-p">Valoracion: {{ episode.vote_average }}</p>
+        <p class="seasons-p">Duración: {{ episode.runtime }}m</p>
+        <p class="seasons-p">{{ episode.overview }}</p>
+
+        <div class="episode-details" v-if="episode.expanded">
+          <p class="seasons-p">Estrellas invitadas</p>
+          <div v-for="guest_star in episode.guest_stars" :key="guest_star.id" @click="selectActor(guest_star.id)">
+            <div class="guest-star-info">
+              <img :src="guest_star.profile_path ? 'https://image.tmdb.org/t/p/w500/' + guest_star.profile_path : ''" :alt="guest_star.name" width="100" class="img-star" >
+              <p class="small-text">Nombre: {{ guest_star.name }}</p>
+              <p class="small-text">Personaje: {{ guest_star.character }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="list">
+    <p class="li">TodoEnUno</p>
+    <p class="li">Privacidad</p>
+    <p class="li">Preguntas frecuentes</p>
+    <p class="li">Cuenta</p>
+  </div>
+  <div class="list">
+    <p class="li">Visitanos</p>
+    <p class="li">Terminos</p>
+    <p class="li">Empleo</p>
+    <p class="li">Avisos legales</p>
+  </div>
+  <div class="list">
+    <p class="li">Contactanos</p>
+    <p class="li">Ayuda</p>
+    <p class="li">Prensa</p>
+    <p class="li">Preferencias de cookies</p>
+  </div>
+  <div class="list">
+    <p class="li">Sobre nosotros</p>
+  </div>
+  <div class="list">
+    <p class="li">© 1997-2021 TodoEnUno</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script type="module">
+    const { createApp, ref } = Vue;
+
+    const app = createApp({
+      setup() {
+        const seasonsDetails = ref({});
+        const selectedSeasonId = ref(null);
+        const apiKey = 'fb78fb1043f6585094c940285994b4d6';
+        let serieId = localStorage.getItem('SerieId');
+        let seasonsNum = localStorage.getItem('numSerie');
+        console.log(seasonsNum);
+        console.log(serieId);
+        const apiUrl = `https://api.themoviedb.org/3/tv/${serieId}/season/${seasonsNum}?language=es-MX&api_key=${apiKey}`;
+
+        const fetchSeasonsDetails = () => {
+          fetch(apiUrl)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('La respuesta de la red no fue exitosa');
+              }
+              return response.json();
+            })
+            .then(data => {
+              seasonsDetails.value = data;
+              console.log(seasonsDetails.value)
+            })
+            .catch(error => {
+              console.error('Error al cargar los detalles de la serie:', error);
+            });
+        };
+        function selectSerie(serieId) {
+          localStorage.setItem('SerieId', serieId);
+          window.location.href = 'serie.html';
+        }
+        const toggleSeasonDetails = (episode) => {
+        // Cambiar el estado de 'expanded' del episodio al hacer clic
+        episode.expanded = !episode.expanded;
+        };
+        function selectActor(actorId) {
+          localStorage.setItem('actorId', actorId);
+          window.location.href = 'Artist.html';
+        }
+        function selecteKeywords(keyWordsId) {
+          localStorage.setItem('keywordsId', keyWordsId);
+          console.log(keyWordsId);
+          window.location.href = 'Details.html';
+        }
+        function selecteSeasons(seasonsId) {
+          localStorage.setItem('seasonsId', seasonsId);
+          console.log(seasonsId);
+          window.location.href = 'Season.html';
+        }
+        function atras() {
+          window.location.href = 'Serie.html';
+        }
+
+        fetchSeasonsDetails();
+
+        return {
+          seasonsDetails,
+          selectSerie,
+          selectActor,
+          selecteKeywords,
+          selecteSeasons,
+          toggleSeasonDetails,
+          atras
+          
+        };
+      },
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
