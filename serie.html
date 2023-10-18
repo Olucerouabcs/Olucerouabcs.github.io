@@ -730,14 +730,15 @@
  
 
   <div class="relevant-content-2">
-    <h2>Recomendaciones</h1>
-    <div class="reparto" v-if="serieDetails.recommendations && serieDetails.recommendations.results">
-      <div class="actor" v-for="(actor, index) in serieDetails.recommendations.results" :key="index" @click="selectSerie(actor.id)">
+    <h2>Recomendaciones</h1>   
+  </div>
+  <div class="reparto" v-if="serieDetails.recommendations && serieDetails.recommendations.results">
+    <div class="actor"  v-for="(actor, index) in serieDetails.recommendations.results" :key="index" @click="selectSerie(actor.id)">
+      <div class="serie-info">
         <img :src="actor.poster_path ? 'https://image.tmdb.org/t/p/w500/' + actor.poster_path : ''" :alt="actor.name" width="100">
         <p>{{ actor.name }}</p>
       </div>
     </div>
-  
   </div>
   
   

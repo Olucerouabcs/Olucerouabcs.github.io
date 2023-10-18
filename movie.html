@@ -718,17 +718,16 @@
     </div>
   </div>
   
- 
-
   <div class="relevant-content-2">
-    <h2>Recomendaciones</h1>
-    <div class="reparto" v-if="movieDetails.recommendations && movieDetails.recommendations.results">
-      <div class="actor" v-for="(recommendation, index) in movieDetails.recommendations.results" :key="index" @click="selectMovie(recommendation.id)">
+    <h2>Recomendaciones</h1>   
+  </div>
+<div class="reparto" v-if="movieDetails.recommendations && movieDetails.recommendations.results">
+    <div class="actor"  v-for="(recommendation, index) in movieDetails.recommendations.results" :key="index" @click="selectMovie(recommendation.id)">
+      <div class="serie-info">
         <img :src="recommendation.poster_path ? 'https://image.tmdb.org/t/p/w500/' + recommendation.poster_path : ''" :alt="recommendation.name" width="100">
         <p>{{ recommendation.title }}</p>
       </div>
     </div>
-  
   </div>
   
   
