@@ -337,7 +337,7 @@ img {
           <div class="relevant-content-2">
             <h2>Películas Conocidas</h2>
             <ul class="movies-filter">
-              <li class="actor" v-for="movie in artistDetails.known_movies" :key="movie.id">
+              <li class="actor" v-for="movie in artistDetails.known_movies" :key="movie.id"  @click="selectMovie(movie.id)">
                 <img :src="movie.poster_path ? 'https://image.tmdb.org/t/p/w500/' + movie.poster_path : ''" :alt="movie.title" width="100">
                 <p>{{ movie.title }}</p>
               </li>
